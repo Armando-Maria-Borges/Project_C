@@ -6,7 +6,7 @@
 /*   By: aborges <aborges@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:14:52 by aborges           #+#    #+#             */
-/*   Updated: 2025/02/18 17:57:10 by aborges          ###   ########.fr       */
+/*   Updated: 2025/02/18 18:11:02 by aborges          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,26 @@ int	ft_count(char **str)
 	return (i);
 }
 
-struct s_contact
-{
-	int	indice;
-	std::string firstname;
-	std::string lastname;
-	std::string nickname;
-	std::string phone_number;
-	std::string secret_more_black;
-}	t_contact[2]; //*************** nao esquecer de por 8
 
 class Contact
 {
 	public:
+		struct s_contact
+		{
+			int	indice;
+			std::string firstname;
+			std::string lastname;
+			std::string nickname;
+			std::string phone_number;
+			std::string secret_more_black;
+		}	t_contact[2]; //*************** nao esquecer de por 8
+
 		void add(int i)
 		{
-			if ((i + 1) > 2)
+			if ((i + 1) > 2) //*************** nao esquecer de por 8
 			{
-				std::cout << "\n	**WE ARE TO REPLACE THIS NEW CONTACT FOR OLD!**\n" << std::endl;
-				char *conf = readline("\n**ARE YOU SHURE 1 - 0 (YES / NO)!?**");
+				std::cout << "\n	**WE ARE TO REPLACE THIS NEW CONTACT FOR OLD!**" << std::endl;
+				char *conf = readline("\n**ARE YOU SHURE? 1 - 0 (YES / NO)\n");
 				if (atoi(conf) == 1)
 				    i = 0;
 				else
@@ -114,6 +115,7 @@ class Contact
 					break ;
 				}
 			}
+
 		}
 
 	private:
@@ -148,7 +150,6 @@ class PhoneBook
 				else
 					std::cout << "Invalid option: " << cmd << std::endl;
 				add_history(cmd);
-				free(cmd);
 			}
 		}
 	private:
