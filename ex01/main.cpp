@@ -6,7 +6,7 @@
 /*   By: aborges <aborges@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:14:52 by aborges           #+#    #+#             */
-/*   Updated: 2025/02/18 18:11:02 by aborges          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:06:21 by aborges          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,34 @@
 #include <readline/readline.h>
 #include <string.h>
 
-int	ft_count(char **str)
+struct s_contact
 {
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
+	int	indice;
+	std::string firstname;
+	std::string lastname;
+	std::string nickname;
+	std::string phone_number;
+	std::string secret_more_black;
+}	t_contact[2]; //*************** nao esquecer de por 8
 
 class Contact
 {
 	public:
-		struct s_contact
-		{
-			int	indice;
-			std::string firstname;
-			std::string lastname;
-			std::string nickname;
-			std::string phone_number;
-			std::string secret_more_black;
-		}	t_contact[2]; //*************** nao esquecer de por 8
-
+		int value = 1;
 		void add(int i)
 		{
-			if ((i + 1) > 2) //*************** nao esquecer de por 8
+			if (i >= 2) //*************** nao esquecer de por 8
 			{
 				std::cout << "\n	**WE ARE TO REPLACE THIS NEW CONTACT FOR OLD!**" << std::endl;
 				char *conf = readline("\n**ARE YOU SHURE? 1 - 0 (YES / NO)\n");
 				if (atoi(conf) == 1)
-				    i = 0;
+				{
+				    if (value >= 2) //POR 8
+				    	value = 0;
+				    else
+				    	value++;
+				    i = value;
+				}
 				else
 					return ;
 			}
@@ -76,12 +70,13 @@ class Contact
 		}
 		std::string new_string(std::string str)
 		{
-		    if (str.length() > 10)
-		        return str.substr(0, 10) + ".";
+		    if (str.length() > 9)
+		        return str.substr(0, 9) + ".";
 		    return str;
 		}
 		void search(int i)
 		{
+			int check_found = 0;
 			std::cout << "\n	**SEARCHING NEW CONTACT!**" << std::endl;
 
 			std::cout << std::setw(10) << new_string("ALL INDICE") << "|"
@@ -107,15 +102,12 @@ class Contact
 	                std::cout << "MICK NAME: " << t_contact[k].nickname << std::endl;
 	                std::cout << "PHONE NUMBER: " << t_contact[k].phone_number << std::endl;
 	                std::cout << "BALCK SECRET: " << t_contact[k].secret_more_black << std::endl;
+	                check_found = 1;
 	                break ;
 				}
-				else
-				{
-					std::cout << "\n	**THE INDICE NOT FOUND!**" << std::endl;
-					break ;
-				}
 			}
-
+			if (check_found == 0)
+				std::cout << "\n	**THE INDICE NOT FOUND!**" << std::endl;
 		}
 
 	private:
@@ -133,7 +125,7 @@ class PhoneBook
 		{
 			Contact contact;
 			char 	*cmd;
-			int		i = 0;
+			int		i = 1;
 
 			while (1)
 			{
@@ -154,7 +146,6 @@ class PhoneBook
 		}
 	private:
 };
-
 
 void menu()
 {
